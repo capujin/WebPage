@@ -1,0 +1,365 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    min-width: 1200px;
+    /* overflow: auto; */
+    background: linear-gradient(180deg,rgba(255,255,255,1),rgba(242, 240, 254, 0.4));
+    /* background-color: black; */
+    margin: 0px 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(../images/longbg.png);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 105%;
+}
+.top { 
+    position: relative;
+    background-color: #032950; 
+    height: 32px; 
+    text-align: right; 
+    border-bottom-width: 1px; 
+    border-bottom-style: solid; 
+    border-bottom-color: #216493; 
+    
+}
+
+.top .jrsc a { 
+    font-size: 12px; 
+    line-height: 12px; 
+    color: #dcdcdc;
+    text-decoration: none; 
+}
+.top .jrsc a:hover { 
+    color: #fff;
+}
+.top .jrsc span { 
+    font-size: 12px; 
+    line-height: 32px; 
+    color: #fff; 
+    padding-right: 10px; 
+    padding-left: 10px; 
+}
+.top .jrsc { 
+    width:1140px; 
+    margin-left:auto; 
+    margin-right:auto; 
+    padding-right: 60px; 
+}
+/* 网页头部 */
+header{
+    position:relative;
+    /* z-index: 9999; */
+}
+.headbg{
+    width: 100%;
+    height: 141px;
+    
+    /* left: -450px; */
+    background-image: url(../images/bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/* 网页头部的logo超链接区域 */
+.heada{
+    width: 800px;
+    height: 141px;
+    margin: 0 auto;
+}
+/* 网页头部的搜索、语言切换区域div */
+.headright{
+    display: none;  /* 设置不可见，未完成！！！ */
+    float: right;
+    margin-right:400px;
+    width: 300px;
+    height: 141px;
+    background-color: rgba(0,0,255,0.1);
+}
+/* nav */
+
+/* nav-ul */
+/* 对导航栏搜索栏和搜索按钮自定义 */
+nav{
+    position: sticky;
+    top:0px;
+    background:linear-gradient(180deg,rgba(242, 240, 254, 1),white);    
+    /* overflow: hidden;  溢出隐藏 */
+    width: 100%;
+}
+article{
+    position: relative;
+    z-index: -1;
+}
+.navbar input{
+    border-color: rgba(0, 0, 0, 0.833);
+    margin: 0px;
+    border-width: 2px;
+    border-radius: 2px;
+    border-color: rgba(7, 0, 202, 0.151);
+    border-style:groove;
+}
+/* 对搜索框自定义 */
+.navbar input[type="search"]{    
+    margin: 10px 10px;
+    height: 28px;
+    width: 180px;
+    padding-left: 10px;
+}
+/* 对按钮进行自定义 */
+.navbar input[type="button"]{
+    box-sizing: border-box;
+    margin-top: 10px;
+    height: 28px;
+    width: 50px;
+    margin-left: 0px;
+    background-color: white;
+}
+/* 搜索按钮缩小动画 */
+.navbar input[type="button"]{
+    transition: scale 0.8s ease-in;
+}
+.navbar input[type="button"]:hover{
+    scale: 0.9 0.9;
+}
+.navbar input[type="button"]:active{
+    background-color: rgba(33, 100, 147,0.5);
+}
+
+/* 导航栏扩展栏 */
+.navbar {  /* 导航栏样式 */
+    margin-left:auto;
+    margin-right:auto;
+    display: flex;
+    z-index: 1;
+    height: 48px;
+    background:linear-gradient(180deg,rgba(242, 240, 254, 1),white);
+    overflow: hidden;  /* 溢出隐藏 */
+    box-sizing: border-box;
+    width: 1200px;
+}
+
+/* 导航栏链接 */
+.navbar a {  /* 导航栏链接样式 */
+    font-weight: bold;
+    color: black;
+    line-height: 48px;
+    width: 115px;
+    height: 48px;
+    text-decoration: none;
+    float: left;  /* 左浮动 */
+    display: block;  /* 块级元素显示 */
+    text-align: center;  /* 文字居中 */
+    transition: color 0.5s;
+    transition: scale 0.5s;
+}
+
+/* 鼠标悬停时的样式 */
+.navbar a:hover {  /* 鼠标悬停时的样式 */
+    background-color: rgba(215, 213, 255, 0.5); 
+    color: #032950;
+    border-radius: 5px;
+    scale: 1.1 1.1;
+}
+
+/* 下级列表容器 */
+.navbar .dropdown {  /* 下级列表容器样式 */
+    float: left;  /* 左浮动 */
+    overflow: hidden;  /* 溢出隐藏 */
+}
+
+/* 下级列表按钮 */
+.navbar .dropdown .dropbtn {  /* 下级列表按钮样式 */
+    font-size: 16px;  /* 字体大小 */
+    border: none;  /* 边框：无 */
+    outline: none;  /* 外边框：无 */
+    color: white;  /* 文字颜色 */
+    padding: 14px 16px;  /* 内边距 */
+    background-color: inherit;  /* 背景颜色继承 */
+    font-family: inherit;  /* 字体继承 */
+    margin: 0;  /* 外边距：0 */
+}
+/* 下级列表内容 */
+.navbar .dropdown-content {  /* 下级列表内容样式 */
+    display: none;
+    position: absolute;  /* 绝对定位 */
+    top: 48px;
+    background:linear-gradient(180deg,white,rgba(242, 240, 254, 1));
+    min-width: 170px;  /* 最小宽度 */
+    padding: 0;
+    box-sizing: border-box;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);  /* 盒子阴影 */
+    z-index: 999;  /* 层级 */
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+/* 下级列表链接 */
+.navbar .dropdown-content a {  /* 下级列表链接样式 */
+    float: none;  /* 不浮动 */
+    color: black;  /* 文字颜色 */
+    padding: 2px 17px;
+    width: 163px;
+    text-decoration: none;  /* 文字装饰：无 */
+    display: block;  /* 块级元素显示 */
+    text-align: left;  /* 文字居左 */
+}
+.navbar .dropdown-content a:hover{
+    background-color: rgba(215, 213, 255, 0.5); 
+    color: #032950;
+    scale: 0.9;
+}
+/* 鼠标悬停时显示下级列表 */
+.navbar .dropdown:hover .dropdown-content {  /* 鼠标悬停时显示下级列表 */
+    display: block;  /* 显示 */
+}
+/* article */
+article{
+    margin: 0 auto;
+    width: 1200px;
+    /* background: linear-gradient(180deg,rgb(0, 61, 122),rgba(123, 189, 255, 0.647),rgba(123,189,255,0.1)); */
+}
+.con { 
+    width:1200px; 
+    margin-left:auto; 
+    margin-right:auto;
+    height: 320px; 
+}
+.imgshow{
+    width: auto;
+}
+
+.footer{
+    position: relative;
+    clear: both;
+    /* bottom: 0px; */
+    /* left: 0px; */
+    box-sizing: border-box;
+    background-color: #032950;
+    font-size: 15px;
+    color: #dcdcdc;
+    text-align: center;
+    line-height: 24px;
+    height: 80px;
+    padding: 12px 0;
+}
+
+/* 轮播图所在区域 */
+
+/* 空余 */
+.main{
+    margin: 0 auto;
+    width: 1200px;
+    /* height: 500px; */
+    background-color: white;
+    position: relative;
+    /* z-index: -1; */
+}
+
+.card{
+    margin: 0 auto;
+    width: 500px;
+    height: 350px;
+    position: relative;
+} 
+.card:hover .rolebg{
+    transform: perspective(700px) rotateX(10deg) skewX(-20deg);
+}
+.card:hover .role{
+    transform: scale(1.1);
+}
+.card:hover .role7{
+    transform: scale(1.2);
+}
+.card:hover .cardcontent_qi{
+    opacity: 1;
+    transform: translateY(30px);
+}
+.card:hover .cardcontent_bao{
+    opacity: 1;
+    transform: translateY(30px);
+}
+.card1{
+    position: relative;
+    float: left;
+    width: 500px;
+    /* background-color: #e74c3c; */
+    margin: 0px 40px;
+}
+.card2{
+    position: relative;
+    float: left;
+    width: 500px;
+    /* background-color: #64e73c; */
+    margin: 0px 40px;
+}
+.rolebg{
+    width: 500px;
+    height: 281px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0px 0px 30px 20px rgba(0, 0, 0, 0.05);
+    transform-origin: bottom;
+    transition: 1.5s;
+}
+.rolebg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.role{
+    width: 500px;
+    height: 281px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: absolute;
+    bottom: 69px;
+    transform-origin: bottom;
+    transition: 1.5s;
+}
+.role7{
+    width: 500px;
+    height: 281px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: absolute;
+    bottom: 69px;
+    transform-origin: left;
+    transition: 1.5s;
+}
+.role img{
+    width: 500px;
+    height: 281px;
+    object-fit: cover;
+}
+.role7 img{
+    width: 500px;
+    height: 281px;
+    object-fit: cover;
+}
+.cardcontent_qi{
+    width: 500px;
+    padding: 10px;
+    color: #032950;
+    position: absolute;
+    bottom: 37px;
+    left: auto;
+    opacity: 0;
+    transition: 1s;
+}
+.cardcontent_bao{
+    width: 500px;
+    padding: 10px;
+    color: #005b86;
+    position: absolute;
+    bottom: 37px;
+    left: auto;
+    opacity: 0;
+    transition: 1s;
+}
+.gototop{
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 999999;
+}
+

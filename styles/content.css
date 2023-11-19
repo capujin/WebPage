@@ -1,0 +1,284 @@
+/* 正文部分css */
+aside {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
+    /* margin-bottom: 20px; */
+    padding-bottom: 20px;
+    height: 900px;
+}
+
+aside .left-content {
+    position: relative;
+    float: left;
+    width: 30%;
+    height: 400px;
+}
+
+aside .right-content {
+    float: left;
+    width: 70%;
+    /* height: calc(100% - 30px); */
+    height: 100%;
+    /* margin-bottom: 20px; */
+    /* height: 2400px; */
+}
+
+/* 正文部分css结束 */
+
+.showimg {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
+    height: 350px;
+    overflow: hidden;
+}
+
+.showimg img {
+    width: 100%;
+    height: 110%;
+}
+
+.listconl {
+    position: absolute;
+    width: 200px;
+    display: block;
+    right: 30px;
+}
+
+.listconlt {
+    background-color: rgba(3, 41, 80, 0.7);
+    width: 200px;
+    height: 80px;
+    display: block;
+    position: absolute;
+    top: -80px;
+    box-shadow: 1px 1px 10px #c5c4c4;
+}
+
+.listconlt p {
+    margin: 0 auto;
+    width: 92px;
+    line-height: 80px;
+    font-size: 23px;
+    font-weight: 700;
+    color: white;
+}
+
+.listconltul {
+    display: block;
+    box-sizing: border-box;
+    padding-left: 7px;
+    background-color: #075a94;
+}
+
+.listconltul li {
+    box-sizing: border-box;
+    width: 100%;
+    height: 60px;
+    list-style-type: none;
+    background-color: white;
+    border-bottom-style: groove;
+    border-bottom-width: 2px;
+    border-color: rgba(110, 123, 137, 0.1);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.listconltul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #dfdfdf;
+    padding-top: 20px;
+    padding-left: 10px;
+    
+}
+
+.listconltul li a:hover {
+    color: rgb(125, 218, 255);
+    background-color: #075a94;
+}
+
+.listconltul li a[name="focus"] {
+    color: rgb(125 218 255);
+    background-color: #075a94;
+}
+
+.listconltul li img {
+    display: block;
+    float: right;
+    width: 15px;
+    height: 15px;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.listconl a {
+    color: #000000;
+}
+
+/* 右侧，上栏 */
+aside .top-content {
+    position: relative;
+    margin: 0 auto;
+    clear: both;
+    width: 95%;
+    height: 70px;
+    box-sizing: border-box;
+    border-bottom: 3px solid rgba(3, 41, 80, 0.9);
+}
+
+aside .top-content .title {
+    box-sizing: border-box;
+    display: block;
+    width: 200px;
+    /* background-color: #000000; */
+    height: 100%;
+    float: left;
+    padding: 20px 20px;
+}
+
+/* #8b0012 */
+aside .top-content .title span {
+    display: block;
+    font-weight: 700;
+    font-size: 23px;
+    color: rgba(3, 41, 80, 0.9);
+}
+
+aside .top-content hr {
+    display: block;
+    width: 150px;
+    border-color: rgba(3, 41, 80, 0.9);
+    border-width: 4px;
+    border-style: solid;
+    position: absolute;
+    bottom: -4px;
+}
+.xrld-hr{
+    width: 150px;
+    background-color: rgba(3, 41, 80, 0.9);
+    height: 8px;
+    position: absolute;
+    bottom: -4px;
+}
+aside .top-content .xrld-content{
+    position: absolute;
+    display: block;
+    width: 150px;
+    border-color: rgba(3, 41, 80, 0.9);
+    border-width: 4px;
+    border-style: solid;  
+    bottom: 347px;
+    /* top: 0px; */
+}
+
+aside .top-content .map {
+    display: block;
+    width: 340px;
+    /* background-color: rgba(7, 0, 202, 0.151); */
+    height: 100%;
+    float: right;
+    box-sizing: border-box;
+}
+
+aside .top-content .map .listconrtd3{
+    margin: 20px 20px;
+    line-height: 30px;
+    color: #075a94;
+}
+.map a{
+    color: black;
+}
+
+aside .right-content .zhengwen,.zhengwen-xrld{
+    height: auto;
+    font-size: 19px;
+    line-height: 28px;
+    font-family: 仿宋;
+    box-sizing: border-box;
+    margin: 10px 30px;
+}
+aside .zhengwen-xrld{
+    height: 1000px;
+}
+.zhengwen p{
+    text-align: justify;
+    margin-top: 20px;
+}
+.zhengwen table span{
+    text-indent: 0px;
+}
+/* 校任领导单独的css-zhengwen */
+.zhengwen-xrld{
+    clear: both;
+    height: auto;
+    font-family: 微软雅黑,Arial, Helvetica, sans-serif;
+}
+/* 所有展开按钮的样式 */
+.zhengwen-xrld div[name = "aDiv"]{
+    position: relative;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f8f8f8;
+    width: 90%;
+    height: 166px;
+    box-sizing: border-box;
+    padding-top: 10px;
+    transition: 0.6s
+}
+.openButton{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 60px;
+    right: 30px;
+}
+.openButton img[name = "oB"]{
+    display: block;
+    width: 50px;
+    height: 50px;
+    transform-origin:center center;
+    transform: rotate(180deg);
+}
+/* 展开的内容样式 */
+
+.openContent{
+    margin: 0 auto;
+    background-color: #000000;
+    width: 90%;
+    height: 166px;
+    box-sizing: border-box;
+    padding-top: 10px;
+}
+
+.zhengwen-xrld div img[name="people"]{
+    margin-top: -10px;
+    margin-right: 20px;
+    float: left;
+    width: 126px;
+    height: 166px;
+}
+.zhengwen-xrld div span{
+    margin: 6px 0;
+    font-size: 14px;
+    display: block;
+}
+.zhengwen-xrld div span[name="name"]{
+    font-size: 23px;
+}
+.zhengwen-xrld div span[job="job"]{
+    font-size: 18px;
+}
+.zhengwen-xrld div[name="aDiv"]:hover{
+    background-color: #075a94;
+    color: white;
+    transform: opacity;
+}
+.zhengwen-xrld summary{
+    cursor: pointer;
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信息科学与工程学院 | 齐鲁师范学院</title>
+    <base href="D:\学习&作业\HTML5学习文件\html\">
+    <link rel="stylesheet" href="./styles/index.css">
+    <!-- 先去采用index的样式 -->
+    <link rel="stylesheet" href="./styles/content.css">
+    <script src="./scripts/swiper.js" async></script>
+    <!-- 用content样式覆盖已出现的样式 -->
+    <script src="./scripts/head.js" async></script>
+</head>
+<body>
+    <div class="top" id="istop">
+        <div class="jrsc">
+            <a href="javascript:;" id="setHomePageLink">设为首页</a>
+            <div class="hr"></div>
+            <a href="index_English.html">EN</a>
+            <div id="newmobile">
+                <button class='menu-toggle' onclick="showDown(this)">Menu</button>
+            </div>
+        </div>
+    </div>
+    <!-- 标题栏-头部 -->
+    <header>
+        <div class="headbg">
+            <a href="javascript:;"></a>
+        </div>
+    </header>
+    <!-- 导航栏 -->
+    <nav>
+        <ul class="navbar">
+            <li><a href="http://www.qlnu.edu.cn/index.htm" target="_self">学校首页</a></li>
+            <li><a href="javascript:;" target="_self">学院首页</a></li>
+            <li>
+                <a href="bygk.html" id="dropDown" target="_self">本院概况</a>
+                <div class="dropdown_content">
+                    <a href="bygk.html">学院简介</a>
+                    <a href="xrld.html">现任领导</a>
+                    <a href="jgsz.html">机构设置</a>
+                    <a href="bgdh.html">办公电话</a>
+                    <a href="zysz.html">专业设置</a>
+                    <a href="sysjj.html">实验室简介</a>
+                </div>
+                <div id="dropDownM"></div>
+            </li>
+            <li><a href="dtjs.html" target="_self">党团建设</a></li>
+            <li><a href="xsgz.html" target="_self">学生工作</a></li>
+            <li><a href="zsjy.html" target="_self">招生就业</a></li>
+            <li><a href="jxky.html" target="_self">教学科研</a></li>
+            <li><a href="xzzx.html" target="_self">下载中心</a></li>
+            <li id="indexSearch"><input type="search" name="searching" autofocus placeholder="请输入关键词">
+                <input type="button" value="搜索">
+            </li>
+
+        </ul>
+    </nav>
+    <!-- 头部  结束 -->
+    <article>
+        <div id="swiper">
+            <!-- 图片区域 -->
+            <div id="imglist">
+                <img src="./images/banner_1.png" alt="">
+                <img src="./images/banner_2.jpg" alt="">
+                <img src="./images/banner3.jpg" alt="">
+                <img src="./images/banner_1.png" alt="">
+            </div>
+            <!-- <div class="control">
+                <span id="pre">＜</span>
+                <span id="next">＞</span>
+            </div> -->
+            <ul class="show">
+                <li class="li" id="a"></li>
+                <li class="li" id="b"></li>
+                <li class="li" id="c"></li>
+            </ul>
+
+        </div>
+    </article>
+    <!-- 正文部分 -->
+    <aside>
+
+        <!-- 左侧 -->
+        <div class="left-content">
+
+        </div>
+
+        <!-- 右侧 -->
+        <div class="right-content">
+            <!-- 右侧->上（网站路径） -->
+            <div class="top-content">
+
+            </div>
+            <!-- 右侧->下（内容） -->
+        </div>
+
+    </aside>
+    <!-- 正文部分结束 -->
+    <div class="gototop" style="display: none;">
+        <a href="javascript:;" onclick="document.getElementById('istop').scrollIntoView();"><img src="images/gototop.png"></a>
+    </div>
+    <!-- <aside class="right"></aside> -->
+    <div class="footer">
+        <div>
+            <span>Copyright&nbsp;©&nbsp;2023</span>
+            <span>计算机科学与技术（春季本科）版权所有&nbsp;&nbsp;All Rights Reserved</span>
+        </div>
+        <div>
+            <span>地址：山东省济南市章丘市文博路2号</span>
+            <span>邮箱：2074352684@qq.com</span>
+            <span>邮编：250013,250200(章丘)</span>
+            <span>电话：10086</span>
+            <span>备案序号：苏ICP备-666666</span>
+        </div>
+    </div>
+</body>
+</html>

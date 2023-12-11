@@ -183,9 +183,22 @@
             transform: translateY(6px);
             transition: all 0.3s ease;
         }
+                button {
+            cursor: pointer;
+            display: block;
+            width: 100px;
+            height: 50px;
+            margin-top: 3px;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 50px;
+            color: red;
+            border-radius: 30px;
+        }
 
-        div[data-id] {
-            font-size: 3rem;
+        button:hover {
+            background-color: red;
+            color: wheat;
         }
     </style>
 </head>
@@ -322,8 +335,13 @@
             </div>
         </div>
     </div>
+        <button class="clicked" onclick="clearStorage(this)">点击重置</button>
     <script>
-
+        function clearStorage(e) {
+            localStorage.removeItem("commetStorage");
+            localStorage.removeItem("allowInit");
+            location.reload();
+        }
         const table = document.querySelector(".table");
         const onColor = {       // 位次排定后颜色显示
             name1: "#98ffdd",

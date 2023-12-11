@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../scripts/sweetalert2.all.min.js"></script>
+    <script src="../Sortable/Sortable.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 水平居中 */
+        }
+
+        .table::before {
+            content: "课例评价量化表";
+            box-sizing: border-box;
+            display: block;
+            text-align: center;
+            font-size: 1.1rem;
+            font-family: inherit;
+            font-weight: bold;
+            line-height: 50px;
+            width: 100%;
+            height: 50px;
+            background-color: #00ffa9;
+            border-left: 1px solid rgb(63, 63, 63);
+            border-right: 1px solid rgb(63, 63, 63);
+            border-top: 1px solid rgb(63, 63, 63);
+        }
+
+        .table {
+            user-select: none;
+            font-size: .9rem;
+            display: grid;
+            width: 1000px;
+            /* margin: 20px 0; */
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 7fr 14fr 48fr 32fr;
+            background-color: #f7f7f7;
+            border: 1px solid rgb(63, 63, 63);
+            border-bottom: none;
+            height: 65px;
+        }
+
+        .row:nth-child(odd) {
+            background-color: #daf6ff;
+        }
+
+        .row:first-child {
+            height: 50px;
+            font-weight: 550;
+            border-top: 1px solid rgb(63, 63, 63);
+            background-color: #56bbff;
+        }
+
+        .row:last-child {
+            border-bottom: 1px solid rgb(63, 63, 63);
+        }
+
+        .cell {
+            border-right: 1px solid rgb(63, 63, 63);
+        }
+
+        /* 第一行的每个单元格文字居中显示 */
+        .row:first-child>*,
+        .row .cell:first-child,
+        .row .cell:nth-child(2),
+        .row .cell:last-child,
+        .title-row,
+        .title-row-column {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .row .cell:last-child {
+            border: none;
+        }
+
+        .cell:has(>.cell-row) {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title-row-column:not(:last-child) {
+            border-right: 1px solid rgb(63, 63, 63);
+        }
+
+        .cell .cell-row:not(:last-child),
+        .title-row:first-child {
+            border-bottom: 1px solid rgb(63, 63, 63);
+        }
+
+        .title-row:last-child {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        /* .row:not(:first-child) .cell:last-child .title-row-column:nth-child(1) { */
+        select[data-id="name1"] {
+            background-color: #eafff8;
+        }
+
+        /* .row:not(:first-child) .cell:last-child .title-row-column:nth-child(2) { */
+        select[data-id="name2"] {
+            background-color: #fffeea;
+        }
+
+        /* .row:not(:first-child) .cell:last-child .title-row-column:nth-child(3) { */
+        select[data-id="name3"] {
+            background-color: #f5eaff;
+        }
+
+        .title-row-column {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 列内行 */
+        .cell-row {
+            padding: 5px;
+            margin: 2px 0;
+        }
+
+        .title-row {
+            height: 50%;
+            width: 100%;
+            /* border-bottom: 1px solid rgb(63, 63, 63); */
+        }
+
+        .title-row svg {
+            cursor: help;
+            margin-left: 3px;
+            width: 13px;
+            height: 13px;
+        }
+
+        .title-row svg:hover>path {
+            fill: rgb(255, 255, 255);
+        }
+
+        .title-row svg:hover+div {
+            transform: translateY(3px);
+            opacity: 1;
+        }
+
+        .title-row-tipText::before {
+            pointer-events: inherit;
+            content: "";
+            position: absolute;
+            top: -5.7839px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 6px solid rgb(255, 255, 255);
+        }
+
+        .title-row-tipText {
+            pointer-events: none;
+            text-indent: 2em;
+            opacity: 0;
+            font-weight: normal;
+            font-size: 0.7rem;
+            border-radius: 5px;
+            padding: 3px;
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgb(63, 63, 63);
+            position: absolute;
+            top: 20px;
+            width: 250px;
+            left: -115px;
+            transform: translateY(6px);
+            transition: all 0.3s ease;
+        }
+
+        .cell:has(>span) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cell>span {
+            text-align: justify;
+            padding: 5px;
+        }
+
+        select {
+            border: none;
+            outline: none;
+        }
+
+        select {
+            font-size: 1.1rem;
+            text-align: center;
+            /* background-color: #56bbff; */
+            /* color: #a5a5a5; */
+        }
+
+        select option {
+            color: #000000;
+        }
+    </style>
+</head>
+<!--  -->
+
+<body>
+    <div class="table">
+        <div class="row">
+            <div class="cell">序号</div>
+            <div class="cell">评价指标</div>
+            <div class="cell">评价要素</div>
+            <div class="cell" style="display: flex; flex-direction: column;">
+                <div class="title-row">指标评分位次
+                    <!-- <span style="position: relative;">
+                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#000000" fill-rule="evenodd"
+                                d="M8,16 C3.58172,16 0,12.4183 0,8 C0,3.58172 3.58172,0 8,0 C12.4183,0 16,3.58172 16,8 C16,12.4183 12.4183,16 8,16 Z M4.4325,6.19122 C4.4325,5.7729 4.57483,5.34907 4.8595,4.91974 C5.14417,4.49041 5.5595,4.13484 6.1055,3.85303 C6.6515,3.57121 7.28848,3.43033 8.01648,3.43033 C8.69315,3.43033 9.2905,3.54811 9.8085,3.78369 C10.3265,4.01927 10.7267,4.33961 11.009,4.74472 C11.2913,5.14983 11.4325,5.59017 11.4325,6.06573 C11.4325,6.44002 11.352,6.76805 11.191,7.04987 C11.03,7.33168 10.8387,7.57497 10.617,7.77972 C10.3953,7.98448 9.9975,8.32904 9.42349,8.81342 C9.26483,8.94992 9.13766,9.06989 9.04199,9.17337 C8.94633,9.27685 8.87516,9.37153 8.82849,9.4574 C8.4428,10.3468 6.77018,10.2464 7.0925,9.00165 C7.21383,8.73084 7.37483,8.49306 7.5755,8.2883 C7.77617,8.08354 8.04681,7.84026 8.38748,7.55844 C8.68615,7.31185 8.902,7.12583 9.035,7.00034 C9.168,6.87484 9.28,6.73502 9.371,6.5809 C9.462,6.42678 9.50748,6.25946 9.50748,6.07892 C9.50748,5.72665 9.36867,5.42944 9.091,5.18726 C8.81334,4.94507 8.45515,4.82397 8.01648,4.82397 C7.50314,4.82397 7.12514,4.94616 6.88248,5.19055 C6.63981,5.43494 6.43448,5.79491 6.26648,6.27048 C6.10781,6.76806 5.80683,7.01685 5.36349,7.01685 C5.10216,7.01685 4.88166,6.92988 4.702,6.75595 C4.52233,6.58202 4.4325,6.39378 4.4325,6.19122 Z M8,13 C7.44771,13 7,12.5523 7,12 C7,11.4477 7.44771,11 8,11 C8.55229,11 9,11.4477 9,12 C9,12.5523 8.55229,13 8,13 Z" />
+                        </svg>
+                        <div class="title-row-tipText">
+                            <p>占位</p>
+                            <p>双击下面的空白区域评定老师的表现，操作说明：</p>
+                            <li>第一次双击：评定为“最优”</li>
+                            <li>第二次双击：评定为“优秀”</li>
+                            <li>第三次双击：评定为“一般”</li>
+                            <p>如果需要调整评定，只需鼠标拖拽已评定的区域即可。</p>
+                        </div>
+                    </span> -->
+                </div>
+                <div class="title-row-tip"></div>
+                <div class="title-row">
+                    <div class="title-row-column">刘备</div>
+                    <div class="title-row-column">关羽</div>
+                    <div class="title-row-column">张飞</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell">1</div>
+            <div class="cell">教学目标设定<!--（15分）--></div>
+            <div class="cell">
+                <span>
+                    1. 以课程标准和教材为依据，教学目标具体明确；2. 以学生学情为基础，教学重难点突出；
+                </span>
+                <!-- <div class="cell-row">1. 以课程标准和教材为依据，教学目标具体明确；</div>
+                <div class="cell-row">2. 以学生学情为基础，教学重难点突出；</div> -->
+            </div>
+            <div class="cell" id="dragRow1" data-group="index1" style="font-size: 2rem;">
+                <select class="title-row-column" data-id="name1">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name2">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name3">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell">2</div>
+            <div class="cell">教学活动设计<!--（15分）--></div>
+            <div class="cell">
+                <span>
+                    1. 教学活动紧扣教学目标，教学时间分配科学合理；2. 教学活动环节相对完整、过程流畅；3. 课堂教学积极处理预设与生成，教与学的互动有实效；
+                </span>
+                <!-- <div class="cell-row">1. 教学活动紧扣教学目标，教学时间分配科学合理；</div>
+                <div class="cell-row">2. 教学活动环节相对完整、过程流畅；</div>
+                <div class="cell-row">3. 课堂教学积极处理预设与生成，教与学的互动有实效；</div> -->
+            </div>
+            <div class="cell" id="dragRow2" data-group="index2" style="font-size: 2rem;">
+                <select class="title-row-column" data-id="name1">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name2">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name3">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell">3</div>
+            <div class="cell">教学方式方法<!--（15分）--></div>
+            <div class="cell">
+                <span>
+                    1. 教学方式方法科学有效，引导学生自主合作探究性学习；2. 教学方式方法形式多样，面向全体，关注差异性：
+                </span>
+                <!-- <div class="cell-row">1. 教学方式方法科学有效，引导学生自主合作探究性学习；</div>
+                <div class="cell-row">2. 教学方式方法形式多样，面向全体，关注差异性；</div> -->
+            </div>
+            <div class="cell" id="dragRow3" data-group="index3" style="font-size: 2rem;">
+                <select class="title-row-column" data-id="name1">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name2">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name3">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell">4</div>
+            <div class="cell">信息技术手段<!--（10分）--></div>
+            <div class="cell" style="justify-content: start;">
+                <span>
+                    1. 信息技术手段运用合理、熟练；2. 信息技术手段运用恰当有效；
+                </span>
+                <!-- <div class="cell-row">1. 信息技术手段运用合理、熟练；</div>
+                <div class="cell-row">2. 信息技术手段运用恰当有效；</div> -->
+            </div>
+            <div class="cell" id="dragRow4" data-group="index4" style="font-size: 2rem;">
+                <select class="title-row-column" data-id="name1">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name2">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name3">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell">5</div>
+            <div class="cell">教学基本素质<!--（10分）--></div>
+            <div class="cell">
+                <span>
+                    1. 普通话标准，语言生动，富有启发性；2. 板书设计合理、新颖，书写工整规范；3. 教师仪表大方得体，教态自然：
+                </span>
+
+                <!-- <div class="cell-row">1. 普通话标准，语言生动，富有启发性；</div>
+                <div class="cell-row">2. 板书设计合理、新颖，书写工整规范；</div>
+                <div class="cell-row">3. 教师仪表大方得体，教态自然；</div> -->
+            </div>
+            <div class="cell" id="dragRow5" data-group="index5" style="font-size: 2rem;">
+                <select class="title-row-column" data-id="name1">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name2">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name3">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell">6</div>
+            <div class="cell">学生参与度<!--（15分）--></div>
+            <div class="cell">
+                <span>
+                    1. 学生参与面广，大部分学生能认真倾听、积极思考、表达自己的观点；2. 学生参与量高，课堂充满求知欲和表现欲；3. 学生自主合作探究学习的时间充足；
+                </span>
+                <!-- <div class="cell-row">1. 学生参与面广，大部分学生能认真倾听、积极思考、表达自己的观点；</div>
+                <div class="cell-row">2. 学生参与量高，课堂充满求知欲和表现欲；</div>
+                <div class="cell-row">3. 学生自主合作探究学习的时间充足；</div> -->
+            </div>
+            <div class="cell" id="dragRow6" data-group="index6" style="font-size: 2rem;">
+                <select class="title-row-column" data-id="name1">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name2">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name3">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell">7</div>
+            <div class="cell">学习任务达成度<!--（15分）--></div>
+            <div class="cell">
+                <span>
+                    1. 学生在教师指导下完成各项学习任务，教学目标达程度高；2. 不同层次的学生在原有基础上得到了提升与发展；
+                </span>
+
+                <!-- <div class="cell-row">1. 学生在教师指导下完成各项学习任务，教学目标达程度高；</div>
+                <div class="cell-row">2. 不同层次的学生在原有基础上得到了提升与发展；</div> -->
+            </div>
+            <div class="cell" id="dragRow7" data-group="index7" style="font-size: 2rem;">
+                <select class="title-row-column" data-id="name1">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name2">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+                <select class="title-row-column" data-id="name3">
+                    <option value="0" style="color: #a5a5a5;" selected disabled>待评议</option>
+                    <option class="title-row-column" value="3">第一</option>
+                    <option class="title-row-column" value="2">第二</option>
+                    <option class="title-row-column" value="1">第三</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- <button class="clicked" onclick="clearStorage(this)">点击重置</button> -->
+    <script>
+        const all = document.querySelectorAll("[data-group]");
+        console.log(all);
+        for (let j = 0; j < all.length; j++) {
+            const select = all[j].querySelectorAll("select");
+            for (let i = 0; i < select.length; i++) {
+                select[i].onchange = function () {
+                    let elseElement = Array.from(select).filter((elem, index) => elem !== this);
+                    correctValue(elseElement, select[i]);
+                }
+            }
+        }
+        // console.log(all);
+
+        function correctValue(all, e) {
+            for (let i = 0; i < all.length; i++) {
+                if (all[i].value == e.value) {
+                    for (let j = 0; j < all.length; j++) {
+                        if (all[j].value == '0') {
+                            console.log("置零");
+                            all[i].children[0].selected = true;
+                        }
+                    }
+                    for (let m = 0; m < all.length; m++) {
+                        if (all[m].value == e.value) {
+                            all[m].children[0].selected = true;
+                        }
+                    }
+                    // all[i].children[0].selected = true;
+                }
+            }
+        }
+
+
+        // console.log(select[0].value);
+        // function clearStorage(e) {
+        //     localStorage.removeItem("commetStorage");
+        //     localStorage.removeItem("allowInit");
+        //     location.reload();
+        // }
+
+        // const table = document.querySelector(".table");
+        // const onColor = {       // 位次排定后颜色显示
+        //     name1: "#98ffdd",
+        //     name2: "#fffa9c",
+        //     name3: "#dbb3ff"
+        // };
+        // let allowInit = [
+        //     'true',
+        //     'true',
+        //     'true',
+        //     'true',
+        //     'true',
+        //     'true',
+        //     'true'
+        // ];
+        // window.addEventListener("load", () => {
+        //     if (localStorage.getItem("commetStorage") != null) {    // 按存储库填充评论
+        //         updateCommentStorage();
+        //     }
+        //     if (localStorage.getItem("allowInit") != null) {  // 按存储库设置是否可被拖拽
+        //         allowInit = JSON.parse(localStorage.getItem("allowInit"));
+        //     }
+        //     for (let i = 0; i < allowInit.length; i++) {
+        //         // console.log(allowInit[i]);
+        //         if (allowInit[i] == 'false') {
+        //             // console.log(i + 1);
+        //             Sortable.create(document.querySelector(`#dragRow${i + 1}`), {
+        //                 swap: true,
+        //                 animation: 250,
+        //                 onEnd: function (/**Event*/evt) {
+        //                     let groupElements = Array.from(evt.from.children);  // 被拖动的 HTMLElement
+        //                     let groupIndex = groupElements[0].dataset.group;
+        //                     let groupNum = parseInt(groupIndex.charAt(groupIndex.length - 1));
+        //                     let beforeIndex = (groupNum - 1) * 3 + evt.oldIndex;
+        //                     let afterIndex = (groupNum - 1) * 3 + evt.newIndex;
+        //                     // console.log("第" + groupNum + '组');
+        //                     // console.log(`第${beforeIndex + 1}个元素` + "到" + `第${afterIndex + 1}个元素`);
+        //                     updataSelectStorage(beforeIndex, afterIndex);
+        //                     // console.log(localStorage.getItem("commetStorage"));
+        //                 }
+        //             });
+        //         }
+        //     }
+        // });
+        // function out() {
+        //     console.log(allowInit);
+        //     console.log(localStorage.getItem("allowInit"));
+        // }
+        // function updataSelectStorage(before, after) {   // 交换locationStorage里commetStorage的索引为before和after的值，索引从0开始
+        //     let textStorage = JSON.parse(localStorage.getItem("commetStorage"));
+        //     let temp = textStorage[before];
+        //     textStorage[before] = textStorage[after];
+        //     textStorage[after] = temp;
+        //     localStorage.setItem("commetStorage", JSON.stringify(textStorage)); // 更新存储库
+        //     updateCommentStorage(); // 根据我的仓库存储的数据更新整个表
+        // }
+        // function updateCommentStorage() {   // 根据locationStorage存储的数据，更新整个评论区域的值
+        //     let all = document.querySelectorAll("[data-id]");
+        //     let commetStorage = JSON.parse(localStorage.getItem("commetStorage"));
+        //     for (let i = 0; i < all.length; i++) {
+        //         if (commetStorage[i] != '') {
+        //             all[i].innerText = commetStorage[i];    //更新单元格内容
+        //             all[i].style.backgroundColor = onColor['name' + (i % 3 + 1)];     //更新单元格颜色
+        //         }
+        //     }
+        // }
+
+        // /*
+        // * 传入参数：父元素
+        // * 返回值：当前点击元素的索引位置（组id，组内id）以及整组元素
+        // *
+        // */
+        // function getElement(event) {
+        //     if (event.target.dataset.id != undefined) {
+        //         let targetCell = event.target;
+        //         let groupStr = targetCell.dataset.group;    //组id过渡变量，不重要
+        //         let idStr = targetCell.dataset.id;  //组内id过渡变量，不重要
+
+        //         let groupIndex = groupStr.charAt(groupStr.length - 1); // 获取组id
+        //         let idIndex = idStr.charAt(idStr.length - 1); // 获取组内id
+        //         let groupElements = document.querySelectorAll("[data-group=index" + groupIndex + "]");
+        //         return {
+        //             self: targetCell,
+        //             groupIndex: groupIndex,  // 组id
+        //             idIndex: idIndex,    // 组内id
+        //             groupElements: groupElements  // 组内所有元素
+
+        //         }
+        //     } else {
+        //         console.log("此处无元素");
+        //         return null;
+
+        //     }
+
+        // }
+
+        // table.addEventListener("click", (e) => {
+        //     // 获取被点击元素
+        //     let targetCell = getElement(e);
+        //     // 做判断，看看该元素是否为我们的“待评价”区域
+        //     if (targetCell != null) {
+        //         if (allowInit[targetCell.groupIndex - 1] == 'true') {  // 防止拖拽元素后出现id错乱的现象
+        //             // 选中的单元格高亮
+        //             targetCell.self.style.backgroundColor = onColor[targetCell.self.dataset.id];
+        //         }
+        //         // 找到当前组内未被点击的元素
+        //         let unselectedElements = Array.from(targetCell.groupElements).filter((elem, index) => elem.innerText.trim() == '');
+        //         // 点击的元素赋值
+        //         if (allowInit[targetCell.groupIndex - 1] == 'true' &&
+        //             targetCell.groupElements[targetCell.idIndex - 1].innerText == '') {    // 只有当前组允许赋值,且当前元素为空，才可以赋值
+        //             targetCell.groupElements[targetCell.idIndex - 1].innerText = 3 - unselectedElements.length + 1;
+        //             if (unselectedElements.length - 1 == 0) {
+        //                 allowInit[targetCell.groupIndex - 1] = 'false';
+        //             }
+        //         }
+        //         else {
+        //             return;
+        //         }
+        //         // 判断是否为最后一个，如果是则禁止用户对该行的操作
+
+        //         // 保存全部评论，做存储准备
+        //         let all = document.querySelectorAll("[data-id]");
+        //         let commetStorage = [];
+        //         for (let i = 0; i < all.length; i++) {
+        //             commetStorage[i] = all[i].innerText;
+        //         }
+        //         localStorage.setItem("commetStorage", JSON.stringify(commetStorage));
+        //         localStorage.setItem("allowInit", JSON.stringify(allowInit));
+        //         if (allowInit[targetCell.groupIndex - 1] == 'false') {
+        //             Sortable.create(document.querySelector(`#dragRow${targetCell.groupIndex}`), {
+        //                 swap: true,
+        //                 animation: 250,
+        //                 onEnd: function (/**Event*/evt) {
+        //                     let groupElements = Array.from(evt.from.children);  // 被拖动的 HTMLElement
+        //                     let groupIndex = groupElements[0].dataset.group;
+        //                     let groupNum = parseInt(groupIndex.charAt(groupIndex.length - 1));
+        //                     let beforeIndex = (groupNum - 1) * 3 + evt.oldIndex;
+        //                     let afterIndex = (groupNum - 1) * 3 + evt.newIndex;
+        //                     // console.log("第" + groupNum + '组');
+        //                     // console.log(`第${beforeIndex + 1}个元素` + "到" + `第${afterIndex + 1}个元素`);
+        //                     updataSelectStorage(beforeIndex, afterIndex);
+        //                     // console.log(localStorage.getItem("commetStorage"));
+        //                 }
+        //             });
+        //         }
+
+        //     }
+        // });
+
+
+
+    </script>
+
+</body>
+
+</html>
